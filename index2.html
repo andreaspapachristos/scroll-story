@@ -1,0 +1,925 @@
+```html
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Scroll Story</title>
+
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            margin: 0;
+
+            background: #111;
+
+            color: #fff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* ==========================================
+           MAIN STORY
+        ========================================== */
+
+        .story {
+
+            display: grid;
+
+            grid-template-columns: 50% 50%;
+
+            width: 100%;
+        }
+
+
+        /* ==========================================
+           LEFT SIDE
+        ========================================== */
+
+        .story-visual {
+
+            position: sticky;
+
+            top: 0;
+
+            height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        .story-image-wrapper {
+
+            position: relative;
+
+            width: 82%;
+
+            height: 82%;
+
+            overflow: hidden;
+
+            border-radius: 12px;
+        }
+
+
+        .story-image {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0;
+
+            transform: scale(1.08);
+        }
+
+
+        .story-image.active {
+
+            opacity: 1;
+
+            transform: scale(1);
+        }
+
+
+        /* ==========================================
+           IMAGE OVERLAY
+        ========================================== */
+
+        .story-image-wrapper::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.05),
+                    rgba(0,0,0,0.25)
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* ==========================================
+           RIGHT CONTENT
+        ========================================== */
+
+        .story-content {
+
+            position: relative;
+        }
+
+
+        .story-item {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 100px 12vw 100px 7vw;
+
+            opacity: 0.25;
+
+            transition:
+                opacity 0.5s ease;
+        }
+
+
+        .story-item.active {
+
+            opacity: 1;
+        }
+
+
+        .story-inner {
+
+            max-width: 650px;
+        }
+
+
+        .story-number {
+
+            font-size: 14px;
+
+            letter-spacing: 4px;
+
+            opacity: 0.5;
+
+            margin-bottom: 25px;
+        }
+
+
+        .story-title {
+
+            font-size: clamp(
+                40px,
+                5vw,
+                80px
+            );
+
+            line-height: 0.95;
+
+            margin: 0 0 30px;
+
+            font-weight: 700;
+        }
+
+
+        .story-text {
+
+            font-size: 20px;
+
+            line-height: 1.7;
+
+            color: #aaa;
+
+            max-width: 550px;
+        }
+
+
+        /* ==========================================
+           PROGRESS
+        ========================================== */
+
+        .story-progress {
+
+            position: fixed;
+
+            left: 30px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 2px;
+
+            height: 160px;
+
+            background: rgba(255,255,255,0.15);
+
+            z-index: 20;
+        }
+
+
+        .story-progress-bar {
+
+            width: 100%;
+
+            height: 0%;
+
+            background: #fff;
+        }
+
+
+        /* ==========================================
+           DOTS
+        ========================================== */
+
+        .story-dots {
+
+            position: fixed;
+
+            right: 30px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+
+            z-index: 20;
+        }
+
+
+        .story-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.25);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease;
+        }
+
+
+        .story-dot.active {
+
+            background: #fff;
+
+            transform: scale(1.8);
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 800px) {
+
+            .story {
+
+                display: block;
+            }
+
+
+            .story-visual {
+
+                position: sticky;
+
+                top: 0;
+
+                height: 50vh;
+
+                z-index: 5;
+
+                background: #111;
+            }
+
+
+            .story-image-wrapper {
+
+                width: 90%;
+
+                height: 85%;
+            }
+
+
+            .story-item {
+
+                min-height: 70vh;
+
+                padding: 80px 8vw;
+            }
+
+
+            .story-title {
+
+                font-size: 42px;
+            }
+
+
+            .story-text {
+
+                font-size: 17px;
+            }
+
+
+            .story-progress,
+            .story-dots {
+
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     PROGRESS BAR
+========================================== -->
+
+<div class="story-progress">
+
+    <div
+        class="story-progress-bar"
+        id="progressBar">
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     DOT NAVIGATION
+========================================== -->
+
+<div
+    class="story-dots"
+    id="storyDots">
+</div>
+
+
+<!-- ==========================================
+     STORY
+========================================== -->
+
+<section class="story">
+
+
+    <!-- ======================================
+         IMAGE
+    ======================================= -->
+
+    <div class="story-visual">
+
+        <div class="story-image-wrapper">
+
+
+            <img
+                class="story-image active"
+                src="images/image1.jpg"
+                data-image="0"
+            >
+
+
+            <img
+                class="story-image"
+                src="images/image2.jpg"
+                data-image="1"
+            >
+
+
+            <img
+                class="story-image"
+                src="images/image3.jpg"
+                data-image="2"
+            >
+
+
+            <img
+                class="story-image"
+                src="images/image4.jpg"
+                data-image="3"
+            >
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ======================================
+         TEXT
+    ======================================= -->
+
+    <div class="story-content">
+
+
+        <article
+            class="story-item active"
+            data-index="0">
+
+            <div class="story-inner">
+
+                <div class="story-number">
+                    01 / 04
+                </div>
+
+                <h2 class="story-title">
+                    Η αρχή
+                </h2>
+
+                <p class="story-text">
+                    Η πρώτη ιστορία ξεκινά εδώ.
+                    Καθώς ο επισκέπτης κατεβαίνει
+                    στη σελίδα, η εικόνα παραμένει
+                    σταθερή και το περιεχόμενο
+                    κινείται γύρω της.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <article
+            class="story-item"
+            data-index="1">
+
+            <div class="story-inner">
+
+                <div class="story-number">
+                    02 / 04
+                </div>
+
+                <h2 class="story-title">
+                    Η εξέλιξη
+                </h2>
+
+                <p class="story-text">
+                    Η δεύτερη ενότητα ενεργοποιείται
+                    όταν φτάσει στο κέντρο της οθόνης.
+                    Τότε η φωτογραφία αλλάζει με
+                    ομαλό animation.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <article
+            class="story-item"
+            data-index="2">
+
+            <div class="story-inner">
+
+                <div class="story-number">
+                    03 / 04
+                </div>
+
+                <h2 class="story-title">
+                    Η κορύφωση
+                </h2>
+
+                <p class="story-text">
+                    Μπορούμε να έχουμε όσες
+                    διαφορετικές εικόνες και
+                    ενότητες θέλουμε.
+                    Το animation γίνεται αυτόματα.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <article
+            class="story-item"
+            data-index="3">
+
+            <div class="story-inner">
+
+                <div class="story-number">
+                    04 / 04
+                </div>
+
+                <h2 class="story-title">
+                    Το αποτέλεσμα
+                </h2>
+
+                <p class="story-text">
+                    Η τελευταία εικόνα ολοκληρώνει
+                    την ιστορία και παραμένει ενεργή
+                    μέχρι να τελειώσει το section.
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const items =
+    document.querySelectorAll('.story-item');
+
+const images =
+    document.querySelectorAll('.story-image');
+
+const progressBar =
+    document.querySelector('#progressBar');
+
+const dotsContainer =
+    document.querySelector('#storyDots');
+
+
+let activeIndex = 0;
+
+
+/* ==========================================
+   CREATE DOTS
+========================================== */
+
+items.forEach((item, index) => {
+
+    const dot =
+        document.createElement('div');
+
+    dot.classList.add('story-dot');
+
+    if (index === 0) {
+
+        dot.classList.add('active');
+
+    }
+
+
+    dot.addEventListener('click', () => {
+
+        item.scrollIntoView({
+
+            behavior: 'smooth',
+
+            block: 'center'
+
+        });
+
+    });
+
+
+    dotsContainer.appendChild(dot);
+
+});
+
+
+const dots =
+    document.querySelectorAll('.story-dot');
+
+
+
+/* ==========================================
+   IMAGE CHANGE
+========================================== */
+
+function changeImage(index) {
+
+
+    if (index === activeIndex) {
+
+        return;
+
+    }
+
+
+    const oldImage =
+        images[activeIndex];
+
+    const newImage =
+        images[index];
+
+
+    /*
+    -----------------------------
+    OLD IMAGE
+    -----------------------------
+    */
+
+    anime({
+
+        targets: oldImage,
+
+        opacity: 0,
+
+        scale: 1.08,
+
+        duration: 450,
+
+        easing: 'easeInOutQuad'
+
+    });
+
+
+    /*
+    -----------------------------
+    NEW IMAGE
+    -----------------------------
+    */
+
+    anime({
+
+        targets: newImage,
+
+        opacity: 1,
+
+        scale: 1,
+
+        duration: 850,
+
+        easing: 'easeOutExpo'
+
+    });
+
+
+    activeIndex = index;
+
+
+    /*
+    -----------------------------
+    DOTS
+    -----------------------------
+    */
+
+    dots.forEach(dot => {
+
+        dot.classList.remove('active');
+
+    });
+
+    dots[index].classList.add('active');
+
+}
+
+
+
+/* ==========================================
+   TEXT ANIMATION
+========================================== */
+
+function animateText(item) {
+
+
+    const number =
+        item.querySelector('.story-number');
+
+    const title =
+        item.querySelector('.story-title');
+
+    const text =
+        item.querySelector('.story-text');
+
+
+    anime({
+
+        targets: [
+            number,
+            title,
+            text
+        ],
+
+        translateY: [35, 0],
+
+        opacity: [0, 1],
+
+        duration: 800,
+
+        delay: anime.stagger(100),
+
+        easing: 'easeOutExpo'
+
+    });
+
+}
+
+
+
+/* ==========================================
+   INTERSECTION OBSERVER
+========================================== */
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+
+                if (!entry.isIntersecting) {
+
+                    return;
+
+                }
+
+
+                const item =
+                    entry.target;
+
+
+                const index =
+                    Number(item.dataset.index);
+
+
+                /*
+                -----------------------------
+                ACTIVE ITEM
+                -----------------------------
+                */
+
+                items.forEach(el => {
+
+                    el.classList.remove('active');
+
+                });
+
+
+                item.classList.add('active');
+
+
+                /*
+                -----------------------------
+                IMAGE
+                -----------------------------
+                */
+
+                changeImage(index);
+
+
+                /*
+                -----------------------------
+                TEXT
+                -----------------------------
+                */
+
+                animateText(item);
+
+
+            });
+
+        },
+
+
+        {
+
+            threshold: 0.55
+
+        }
+
+    );
+
+
+
+items.forEach(item => {
+
+    observer.observe(item);
+
+});
+
+
+
+/* ==========================================
+   SCROLL PROGRESS
+========================================== */
+
+window.addEventListener(
+
+    'scroll',
+
+    () => {
+
+
+        const story =
+            document.querySelector('.story');
+
+
+        const rect =
+            story.getBoundingClientRect();
+
+
+        const windowHeight =
+            window.innerHeight;
+
+
+        const totalHeight =
+            story.offsetHeight;
+
+
+        const current =
+            -rect.top;
+
+
+        const scrollable =
+            totalHeight - windowHeight;
+
+
+        let progress =
+            current / scrollable;
+
+
+        progress =
+            Math.max(
+                0,
+                Math.min(1, progress)
+            );
+
+
+        /*
+        -----------------------------
+        ANIMATE PROGRESS
+        -----------------------------
+        */
+
+        anime({
+
+            targets: progressBar,
+
+            height: `${progress * 100}%`,
+
+            duration: 150,
+
+            easing: 'linear'
+
+        });
+
+
+    },
+
+    {
+
+        passive: true
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+```

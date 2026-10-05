@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Scroll Story</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <!-- Anime.js -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js">
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         MAIN STORY
+    ================================== -->
+
+    <main class="story">
+
+
+        <!-- =================================
+             LEFT — IMAGE
+        ================================== -->
+
+        <div class="visual-column">
+
+            <div class="visual-frame">
+
+                <div class="image-stack">
+
+
+                    <img
+                        src="images/image1.jpg"
+                        class="story-image active"
+                        alt=""
+                    >
+
+
+                    <img
+                        src="images/image2.jpg"
+                        class="story-image"
+                        alt=""
+                    >
+
+
+                    <img
+                        src="images/image3.jpg"
+                        class="story-image"
+                        alt=""
+                    >
+
+
+                    <img
+                        src="images/image4.jpg"
+                        class="story-image"
+                        alt=""
+                    >
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             RIGHT — TEXT
+        ================================== -->
+
+        <div class="content-column">
+
+
+            <div class="story-content">
+
+
+                <div class="section-number">
+                    01
+                </div>
+
+
+                <h1 id="story-title">
+                    ΠΑΡΑΓΩΓΗ
+                </h1>
+
+
+                <p id="story-text">
+                    Η παραγωγή ξεκινά από τον σωστό σχεδιασμό.
+                    Κάθε στάδιο οργανώνεται με ακρίβεια ώστε
+                    το τελικό αποτέλεσμα να είναι σταθερό
+                    και ποιοτικό.
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =================================
+         PROGRESS BAR
+    ================================== -->
+
+    <div class="progress">
+
+        <div class="progress-bar"></div>
+
+    </div>
+
+
+
+    <!-- =================================
+         DOT NAVIGATION
+    ================================== -->
+
+    <div class="dots">
+
+
+        <button
+            class="dot active"
+            data-index="0">
+        </button>
+
+
+        <button
+            class="dot"
+            data-index="1">
+        </button>
+
+
+        <button
+            class="dot"
+            data-index="2">
+        </button>
+
+
+        <button
+            class="dot"
+            data-index="3">
+        </button>
+
+
+    </div>
+
+
+
+    <script src="story.js"></script>
+
+
+</body>
+
+</html>
