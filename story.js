@@ -3,47 +3,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const stories = [
 
         {
-            title: "ΕΓΩ",
+            title: "ΜΕ",
 
             text:
-                "Είμαι ο Ανδρεάς. Μου αρέσει να δημιουργώ, να μαθαίνω και να εξελίσσομαι, " +
-                "Πιστεύω ότι η εμπειρία έχει αξία όταν συνδυάζεται με περιέργεια και διάθεση για κάτι καινούργιο.",
+                "I’m Andreas. I enjoy creating, learning, and " + 
+                "growing. I believe that experience becomes truly valuable when combined with curiosity and a willingness to try something new. ", 
+                
 
             image: 0
         },
 
         {
-            title: "ΔΗΜΙΟΥΡΓΩ",
+            title: "CREATING",
 
             text:
-                "Από μια ιδέα σε κάτι πραγματικό" +
-                "Η τεχνολογία είναι ένας από τους τρόπους με τους οποίους εκφράζομαι" +
-                "Μου αρέσει να σχεδιάζω, προγραμματίζω και να πειραματίζομαι με νέες ιδέες" +
-                "από web εφαρμογές μέχρι αυτοματισμούς και cloud υποδομές.",
+                "From an idea to something real" +
+                "Technology is one of the ways I express myself" +
+                "I like to design, program, and experiment with new ideas" +
+                "from web applications to automations and cloud infrastructures.",
 
             image: 1
         },
 
         {
-            title: "ΚΙΝΟΥΜΑΙ",
+            title: "MOVING",
 
             text:
-                "Το σώμα χρειάζεται κίνηση." +
-                "Η κολύμβηση και η άσκηση αποτελού σημαντικό κομμάτι της καθεμάρινοτητας μου. " +
-                "Με ενδιαφέρει η όλη η διαδικασία: η συνέπεια, η προσπάθεια, " +
-                "και η μικρή βελτίωση που έρχεται κάθε φορά.",
+                "The body needs movement." +
+                "Swimming and exercise are important parts of my daily routine. " +
+                "I am interested in the entire process: consistency, effort, " +
+                "and the small improvements that come with each attempt.",
 
             image: 2
         },
 
         {
-            title: "ΕΞΕΛΙΣΣΟΜΑΙ",
+            title: "GROWING",
 
             text:
-                "Δεν πιστεύω ότι η εξέλιξη έχει ηλικία." +
-                "Μπορείς να ξεκινήσεις κάτι καινούργιο, " +
-                "να μάθεις μια νέα τεχνολογία, " +
-                "να βάλεις έναν διαφορετικό στόχο και να εκπλήξεις τον εαυτό σου.",
+                "I don’t believe that growth has an age." +
+                "You can start something new, " +
+                "learn a new technology, " +
+                "set a different goal, and surprise yourself.",
 
             image: 3
         }
