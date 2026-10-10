@@ -70,79 +70,56 @@ document.addEventListener("DOMContentLoaded", () => {
        CREATE FLIP CHARACTERS
     ================================= */
 
+    /* =================================
+        CREATE FLIP CHARACTERS (BY WORD)
+    ================================= */
+
     function createCharacters(
         element,
         finalText,
         type
     ) {
-
         element.innerHTML = "";
 
         const fragment =
             document.createDocumentFragment();
 
+        // Χωρίζουμε το κείμενο σε λέξεις διατηρώντας τα κενά
+        const words = finalText.split(" ");
+        let globalIndex = 0; // Μετρητής για το συνολικό delay των γραμμάτων
 
-        for (
-            let i = 0;
-            i < finalText.length;
-            i++
-        ) {
+        words.forEach((wordText, wordIndex) => {
+            // Δημιουργία container για κάθε λέξη ώστε να μην σπάει
+            const wordSpan = document.createElement("span");
+            wordSpan.className = "flip-word";
 
-            const character =
-                finalText[i];
+            for (let i = 0; i < wordText.length; i++) {
+                const character = wordText[i];
 
+                const span = document.createElement("span");
+                span.className = "flip-character";
+                span.textContent = character;
 
-            /*
-             * Space
-             */
+                const delay =
+                    type === "title"
+                        ? globalIndex * 55
+                        : globalIndex * 18;
 
-            if (character === " ") {
-
-                const space =
-                    document.createElement("span");
-
-                space.className =
-                    "flip-space";
-
-                fragment.appendChild(space);
-
-                continue;
+                span.style.animationDelay = `${delay}ms`;
+                wordSpan.appendChild(span);
+                globalIndex++;
             }
 
+            fragment.appendChild(wordSpan);
 
-            /*
-             * Character
-             */
-
-            const span =
-                document.createElement("span");
-
-            span.className =
-                "flip-character";
-
-            span.textContent =
-                character;
-
-
-            /*
-             * Το paragraph έχει
-             * πιο ήπιο stagger.
-             */
-
-            const delay =
-                type === "title"
-                    ? i * 55
-                    : i * 18;
-
-
-            span.style.animationDelay =
-                `${delay}ms`;
-
-
-            fragment.appendChild(span);
-
-        }
-
+            // Προσθήκη κενών ανάμεσα στις λέξεις (εκτός από την τελευταία)
+            if (wordIndex < words.length - 1) {
+                const space = document.createElement("span");
+                space.className = "flip-space";
+                fragment.appendChild(space);
+                globalIndex++; // Υπολογισμός και του κενού στον χρόνο αν χρειαστεί
+            }
+        });
 
         element.appendChild(fragment);
     }

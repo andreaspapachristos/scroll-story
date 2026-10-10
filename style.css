@@ -140,7 +140,7 @@ body {
 
     line-height: 1;
 
-    letter-spacing: -0.04em;
+    letter-spacing: 0.04em;
 
     margin-bottom: 40px;
 
@@ -170,8 +170,14 @@ body {
     
 }
 
-
 /* =================================
+   απο gemini.css
+================================*/
+.flip-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+/*===============================
    AIRPORT CHARACTERS
 ================================= */
 
@@ -207,7 +213,7 @@ body {
 .flip-space {
     display: inline-block;
 
-    width: 0.40em;
+    width: 0.50em;
 }
 
 
