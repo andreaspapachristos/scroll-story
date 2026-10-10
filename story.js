@@ -3,48 +3,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const stories = [
 
         {
-            title: "ΜΕ",
+            title: "Who I Am",
 
             text:
-                "I’m Andreas. I enjoy creating, learning, and " + 
-                "growing. I believe that experience becomes truly valuable when combined with curiosity and a willingness to try something new. ", 
+                "I believe that life is made of small moments, meaningful experiences, and the things we choose to pursue with passion. " + 
+                " I am curious by nature, always looking for something new to learn, create, or understand. I enjoy technology, creativity, travelling," +
+                "and the simple satisfaction of seeing an idea become something real.", 
                 
 
             image: 0
         },
 
         {
-            title: "CREATING",
+            title: "Technology & Creativity",
 
             text:
-                "From an idea to something real" +
-                "Technology is one of the ways I express myself" +
-                "I like to design, program, and experiment with new ideas" +
-                "from web applications to automations and cloud infrastructures.",
+                "Technology has always been more than a tool for me. It is a way of thinking, experimenting, and creating. " +
+                "From programming and web development to discovering new technologies," +
+                "I enjoy understanding how things work and finding better ways to make them work." +
+                " I like building things from scratch and turning ideas into practical, elegant solutions.",
 
             image: 1
         },
 
         {
-            title: "MOVING",
+            title: "Beyond the Screen",
 
             text:
-                "The body needs movement." +
-                "Swimming and exercise are important parts of my daily routine. " +
-                "I am interested in the entire process: consistency, effort, " +
-                "and the small improvements that come with each attempt.",
+                "There is a whole world outside technology. I enjoy staying active, swimming, exploring new places, and challenging myself with new experiences. I believe that keeping the mind curious and the body active creates a balance that makes everyday life more interesting and rewarding.",
 
             image: 2
         },
 
         {
-            title: "GROWING",
+            title: "Always Moving Forward",
 
             text:
-                "I don’t believe that growth has an age." +
-                "You can start something new, " +
-                "learn a new technology, " +
-                "set a different goal, and surprise yourself.",
+                "I don't believe in standing still. There is always something new to learn, another challenge to take on, or another idea worth exploring. For me, progress is not about being perfect; it is about remaining curious, improving little by little, and enjoying the journey along the way.",
 
             image: 3
         }
@@ -76,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isAnimating = false;
 
 
-    /* =================================
+    /* ================================eas=
        CREATE FLIP CHARACTERS
     ================================= */
 
